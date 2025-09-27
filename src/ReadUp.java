@@ -38,7 +38,7 @@ public class ReadUp {
         JPanel bannerPanel = new JPanel(new BorderLayout());
         bannerPanel.setPreferredSize(new Dimension(frame.getWidth(), 100));
 
-        ImageIcon gifIcon = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/Read Portico Library GIF.gif");
+        ImageIcon gifIcon = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/img/Read Portico Library GIF.gif");
         Image img = gifIcon.getImage().getScaledInstance(frame.getWidth(), 100, Image.SCALE_DEFAULT);
         gifIcon = new ImageIcon(img);
 
@@ -74,38 +74,81 @@ public class ReadUp {
 
 
             JPanel recuadroGrande = new JPanel();
-            recuadroGrande.setBackground(new Color(247, 144, 6));
+            recuadroGrande.setBackground(new Color(255, 214, 153));
             recuadroGrande.setBounds(20, 40, 300, 420); // x, y, ancho, alto
             menuPanel.add(recuadroGrande);
 
 
-            // Cargar GIF
-            ImageIcon gifIconBook = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/WhatsApp GIF 2025-09-26 at 20.08.17.gif");
-            JLabel gifLabelBook = new JLabel(gifIconBook);
-            gifLabelBook.setBounds(20 , 40, 100, 420); // x, y, ancho, alto
-
-
-            recuadroGrande.setLayout(new BorderLayout());
-            recuadroGrande.add(gifLabelBook, BorderLayout.CENTER);
-
-
-
             JLabel titulo = new JLabel("Ve nuestro catalogo!");
-            titulo.setFont(new Font("Monospaced", Font.BOLD, 25));
-            titulo.setBounds(350, 40, 300, 30); // x, y, ancho, alto
+            titulo.setForeground(new Color(255, 132, 132));
+            titulo.setFont(new Font("Monospaced", Font.BOLD,25));
+            titulo.setBounds(345, 40, 300, 30); // x, y, ancho, alto
             menuPanel.add(titulo);
+
+            // Primer libro MENU
+            JLabel titulo1 = new JLabel("Habitos Atomicos.");
+            titulo1.setFont(new Font("Monospaced", Font.PLAIN, 17));
+            titulo1.setBounds(475, 90, 300, 30); // x, y, ancho, alto
+            menuPanel.add(titulo1);
+
+
+            JLabel subtitulo1 = new JLabel("por James Clear");
+            subtitulo1.setFont(new Font("Monospaced", Font.PLAIN, 16));
+            subtitulo1.setBounds(475, 110, 300, 30); // x, y, ancho, alto
+            menuPanel.add(subtitulo1);
+
+
+
+            // Segundo libro MENU
+            JLabel titulo2 = new JLabel("El dilema de la novia");
+            titulo2.setFont(new Font("Monospaced", Font.PLAIN, 17));
+            titulo2.setBounds(475, 290, 300, 30); // x, y, ancho, alto
+            menuPanel.add(titulo2);
+
+            JLabel subtitulo2 = new JLabel("por Elena Armas");
+            subtitulo2.setFont(new Font("Monospaced", Font.PLAIN, 16));
+            subtitulo2.setBounds(475, 310, 300, 30); // x, y, ancho, alto
+            menuPanel.add(subtitulo2);
+
 
 
             JPanel recuadroPeque1 = new JPanel();
             recuadroPeque1.setBackground(new Color(255, 230, 128));
-            recuadroPeque1.setBounds(350, 100, 150, 120);
+            recuadroPeque1.setBounds(340, 80, 120, 180);
             menuPanel.add(recuadroPeque1);
 
 
             JPanel recuadroPeque2 = new JPanel();
             recuadroPeque2.setBackground(new Color(255, 230, 128));
-            recuadroPeque2.setBounds(350, 270, 150, 120);
+            recuadroPeque2.setBounds(340, 280, 120, 180);
             menuPanel.add(recuadroPeque2);
+
+
+            // Imagen para recuadroPeque1
+            ImageIcon icon1 = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/img/WhatsApp Image 2025-09-27 at 00.04.01.jpeg");
+            Image img1 = icon1.getImage().getScaledInstance(recuadroPeque1.getWidth() - 10, recuadroPeque1.getHeight() - 10, Image.SCALE_SMOOTH); // margen de 5px por lado
+            icon1 = new ImageIcon(img1);
+            JLabel labelImg1 = new JLabel(icon1);
+            labelImg1.setHorizontalAlignment(JLabel.CENTER);
+            labelImg1.setVerticalAlignment(JLabel.CENTER);
+
+            // Poner el JLabel en el recuadro y usar BorderLayout para centrar
+            recuadroPeque1.setLayout(new BorderLayout());
+            recuadroPeque1.add(labelImg1, BorderLayout.CENTER);
+
+            // Imagen para recuadroPeque2
+            ImageIcon icon2 = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/img/WhatsApp Image 2025-09-27 at 00.02.58.jpeg");
+            Image img2 = icon2.getImage().getScaledInstance(recuadroPeque2.getWidth() - 10, recuadroPeque2.getHeight() - 10, Image.SCALE_SMOOTH);
+            icon2 = new ImageIcon(img2);
+            JLabel labelImg2 = new JLabel(icon2);
+            labelImg2.setHorizontalAlignment(JLabel.CENTER);
+            labelImg2.setVerticalAlignment(JLabel.CENTER);
+
+            recuadroPeque2.setLayout(new BorderLayout());
+            recuadroPeque2.add(labelImg2, BorderLayout.CENTER);
+
+
+
 
             // Agregar al CardLayout
             panelDerecho.add(menuPanel, "Menú");
@@ -113,7 +156,47 @@ public class ReadUp {
 
 
 
-        panelDerecho.add(new JLabel("Panel de Libros", JLabel.CENTER), "Libros");
+
+
+            // PANEL LIBROS/TABLAS
+            String[] columnas = {"ID","Título", "Autor", "Año"};
+            Object[][] datos = {
+                {"1","Call Me By Your Name", "André Aciman","2010"},
+                {"2","Hábitos Atómicos", "James Clear","2016"},
+                {"3","El dilema de la novia", "Elena Armas","2020"},
+                {"4","Happy Place", "Emily Henry","2019"}
+            };
+
+            // Crear JTable
+            JTable tablaLibros = new JTable(datos, columnas);
+            tablaLibros.setFillsViewportHeight(true);
+            tablaLibros.setRowHeight(25);
+            tablaLibros.setFont(new Font("Monospaced", Font.PLAIN, 13));
+
+            // Encabezado sencillo
+            tablaLibros.getTableHeader().setBackground(new Color(247, 144, 6)); // naranja
+            tablaLibros.getTableHeader().setForeground(Color.WHITE);              // texto blanco
+            tablaLibros.getTableHeader().setFont(new Font("Monospaced", Font.BOLD, 20));
+
+            // Mostrar líneas de la tabla
+            tablaLibros.setShowGrid(true);                  // activa las líneas
+            tablaLibros.setGridColor(Color.GRAY);          // color de las líneas
+
+
+            JScrollPane scrollPane = new JScrollPane(tablaLibros);
+
+            // Panel “Libros”
+            JPanel panelLibros = new JPanel(new BorderLayout());
+            panelLibros.add(scrollPane, BorderLayout.CENTER);
+
+            // Añadir al CardLayout
+            panelDerecho.add(panelLibros, "Libros");
+
+
+
+
+
+
         panelDerecho.add(new JLabel("Panel de definir1", JLabel.CENTER), "A definir1");
         panelDerecho.add(new JLabel("Panel de definir2", JLabel.CENTER), "A definir2");
         panelDerecho.add(new JLabel("Llamar a Soporte 33-2053-7345", JLabel.CENTER), "Ayuda");
