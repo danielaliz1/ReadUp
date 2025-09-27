@@ -67,8 +67,52 @@ public class ReadUp {
         panelDerecho = new JPanel(cardLayout);
         panelDerecho.setOpaque(false);
 
-        // Aquí agregas tus paneles (usa tus clases reales si ya las tienes)
-        panelDerecho.add(new JLabel("Panel de Menú/Inicio", JLabel.CENTER), "Menú");
+            // PANEL MENÚ 
+            JPanel menuPanel = new JPanel();
+            menuPanel.setBackground(Color.WHITE);
+            menuPanel.setLayout(null); 
+
+
+            JPanel recuadroGrande = new JPanel();
+            recuadroGrande.setBackground(new Color(247, 144, 6));
+            recuadroGrande.setBounds(20, 40, 300, 420); // x, y, ancho, alto
+            menuPanel.add(recuadroGrande);
+
+
+            // Cargar GIF
+            ImageIcon gifIconBook = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/WhatsApp GIF 2025-09-26 at 20.08.17.gif");
+            JLabel gifLabelBook = new JLabel(gifIconBook);
+            gifLabelBook.setBounds(20 , 40, 100, 420); // x, y, ancho, alto
+
+
+            recuadroGrande.setLayout(new BorderLayout());
+            recuadroGrande.add(gifLabelBook, BorderLayout.CENTER);
+
+
+
+            JLabel titulo = new JLabel("Ve nuestro catalogo!");
+            titulo.setFont(new Font("Monospaced", Font.BOLD, 25));
+            titulo.setBounds(350, 40, 300, 30); // x, y, ancho, alto
+            menuPanel.add(titulo);
+
+
+            JPanel recuadroPeque1 = new JPanel();
+            recuadroPeque1.setBackground(new Color(255, 230, 128));
+            recuadroPeque1.setBounds(350, 100, 150, 120);
+            menuPanel.add(recuadroPeque1);
+
+
+            JPanel recuadroPeque2 = new JPanel();
+            recuadroPeque2.setBackground(new Color(255, 230, 128));
+            recuadroPeque2.setBounds(350, 270, 150, 120);
+            menuPanel.add(recuadroPeque2);
+
+            // Agregar al CardLayout
+            panelDerecho.add(menuPanel, "Menú");
+
+
+
+
         panelDerecho.add(new JLabel("Panel de Libros", JLabel.CENTER), "Libros");
         panelDerecho.add(new JLabel("Panel de definir1", JLabel.CENTER), "A definir1");
         panelDerecho.add(new JLabel("Panel de definir2", JLabel.CENTER), "A definir2");
