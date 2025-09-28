@@ -73,10 +73,27 @@ public class ReadUp {
             menuPanel.setLayout(null); 
 
 
+
             JPanel recuadroGrande = new JPanel();
             recuadroGrande.setBackground(new Color(255, 214, 153));
-            recuadroGrande.setBounds(20, 40, 300, 420); // x, y, ancho, alto
+            recuadroGrande.setBounds(20, 20, 300, 440); // x, y, ancho, alto
             menuPanel.add(recuadroGrande);
+
+
+
+            // Imagen para recuadroPeque1
+            ImageIcon icon3 = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/img/71sOSrd+JxL._UF894,1000_QL80_.jpg");
+            Image img3 = icon3.getImage().getScaledInstance(recuadroGrande.getWidth() - 15, recuadroGrande.getHeight() - 15, Image.SCALE_SMOOTH); // margen de 5px por lado
+            icon3 = new ImageIcon(img3);
+            JLabel labelImg3 = new JLabel(icon3);
+            labelImg3.setHorizontalAlignment(JLabel.CENTER);
+            labelImg3.setVerticalAlignment(JLabel.CENTER);
+            labelImg3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            // Poner el JLabel en el recuadro y usar BorderLayout para centrar
+            recuadroGrande.setLayout(new BorderLayout());
+            recuadroGrande.add(labelImg3, BorderLayout.CENTER);
+
 
 
             JLabel titulo = new JLabel("Ve nuestro catalogo!");
@@ -131,6 +148,7 @@ public class ReadUp {
             JLabel labelImg1 = new JLabel(icon1);
             labelImg1.setHorizontalAlignment(JLabel.CENTER);
             labelImg1.setVerticalAlignment(JLabel.CENTER);
+            labelImg1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
             // Poner el JLabel en el recuadro y usar BorderLayout para centrar
             recuadroPeque1.setLayout(new BorderLayout());
@@ -143,11 +161,10 @@ public class ReadUp {
             JLabel labelImg2 = new JLabel(icon2);
             labelImg2.setHorizontalAlignment(JLabel.CENTER);
             labelImg2.setVerticalAlignment(JLabel.CENTER);
+            labelImg2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
             recuadroPeque2.setLayout(new BorderLayout());
             recuadroPeque2.add(labelImg2, BorderLayout.CENTER);
-
-
 
 
             // Agregar al CardLayout
@@ -158,25 +175,50 @@ public class ReadUp {
 
 
 
+
+
             // PANEL LIBROS/TABLAS
-            String[] columnas = {"ID","Título", "Autor", "Año"};
+            String[] columnas = {"ID","Título", "Autor", "Año", "Género"};
             Object[][] datos = {
-                {"1","Call Me By Your Name", "André Aciman","2010"},
-                {"2","Hábitos Atómicos", "James Clear","2016"},
-                {"3","El dilema de la novia", "Elena Armas","2020"},
-                {"4","Happy Place", "Emily Henry","2019"}
+                {"1","Call Me By Your Name", "André Aciman","2010", "Romance"},
+                {"2","Hábitos Atómicos", "James Clear","2016", "Motivacional"},
+                {"3","El dilema de la novia", "Elena Armas","2020", "Romance"},
+                {"4","Happy Place", "Emily Henry","2019", "Romance"},
+                {"5","It Ends with Us", "Colleen Hoover","2016", "Romance"},
+                {"6","Verity", "Colleen Hoover","2018", "Thriller"},
+                {"7","The Silent Patient", "Alex Michaelides","2019", "Thriller"},
+                {"8","Where the Crawdads Sing", "Delia Owens","2018", "Mystery"},
+                {"9","The Midnight Library", "Matt Haig","2020", "Fantasy"},
+                {"10","Project Hail Mary", "Andy Weir","2021", "Science Fiction"},
+                {"11","Dune", "Frank Herbert","1965", "Science Fiction"},
+                {"12","Neuromancer", "William Gibson","1984", "Cyberpunk"},
+                {"13","The Hobbit", "J.R.R. Tolkien","1937", "Fantasy"},
+                {"14","1984", "George Orwell","1949", "Dystopian"},
+                {"15","Brave New World", "Aldous Huxley","1932", "Dystopian"},
+                {"16","Fahrenheit 451", "Ray Bradbury","1953", "Dystopian"},
+                {"17","The Catcher in the Rye", "J.D. Salinger","1951", "Fiction"},
+                {"18","To Kill a Mockingbird", "Harper Lee","1960", "Fiction"},
+                {"19","Pride and Prejudice", "Jane Austen","1813", "Romance"},
+                {"20","The Great Gatsby", "F. Scott Fitzgerald","1925", "Fiction"}
             };
 
-            // Crear JTable
-            JTable tablaLibros = new JTable(datos, columnas);
+            // Crear JTable no editable
+            JTable tablaLibros = new JTable(datos, columnas) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // ninguna celda será editable
+                }
+            };
             tablaLibros.setFillsViewportHeight(true);
             tablaLibros.setRowHeight(25);
             tablaLibros.setFont(new Font("Monospaced", Font.PLAIN, 13));
+            
 
             // Encabezado sencillo
             tablaLibros.getTableHeader().setBackground(new Color(247, 144, 6)); // naranja
             tablaLibros.getTableHeader().setForeground(Color.WHITE);              // texto blanco
             tablaLibros.getTableHeader().setFont(new Font("Monospaced", Font.BOLD, 20));
+            tablaLibros.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
             // Mostrar líneas de la tabla
             tablaLibros.setShowGrid(true);                  // activa las líneas
@@ -199,7 +241,55 @@ public class ReadUp {
 
         panelDerecho.add(new JLabel("Panel de definir1", JLabel.CENTER), "A definir1");
         panelDerecho.add(new JLabel("Panel de definir2", JLabel.CENTER), "A definir2");
-        panelDerecho.add(new JLabel("Llamar a Soporte 33-2053-7345", JLabel.CENTER), "Ayuda");
+
+
+            // PANEL AYUDA
+        JPanel panelAyuda = new JPanel();
+        panelAyuda.setBackground(Color.WHITE); 
+        panelAyuda.setLayout(null); // Para ubicar con coordenadas absolutas
+
+        Color ayudaColor = new Color(56, 7, 13); 
+
+        // Etiqueta mensaje (arriba)
+        JLabel mensaje = new JLabel("¡Estamos felices de ayudarte!", JLabel.CENTER);
+        mensaje.setForeground(ayudaColor);
+        mensaje.setBounds(200, 150, 300, 30);
+        panelAyuda.add(mensaje);
+
+        // Etiqueta teléfono (debajo)
+        JLabel telefono = new JLabel("Llama a Soporte al 33-2053-7345", JLabel.CENTER);
+        telefono.setForeground(ayudaColor);
+        telefono.setBounds(200, 170, 300, 30);
+        panelAyuda.add(telefono);
+
+        
+        // Cargar imagen original
+        ImageIcon icon4 = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/img/WhatsApp Image 2025-09-20 at 23.38.23-2.png");
+
+        // Escalar al tamaño del recuadro
+        Image img4 = icon4.getImage().getScaledInstance(
+                recuadroPeque2.getWidth() - 10, 
+                recuadroPeque2.getHeight() - 10, 
+                Image.SCALE_SMOOTH
+        );
+        icon4 = new ImageIcon(img4);
+
+        // Crear JLabel con el icono escalado
+        JLabel labelImg4 = new JLabel(icon4);
+        labelImg4.setHorizontalAlignment(JLabel.CENTER);
+        labelImg4.setVerticalAlignment(JLabel.CENTER);
+        labelImg4.setBounds(280, 180, 150, 150); // posición y tamaño del recuadro
+
+        // Agregar al panel
+        panelAyuda.add(labelImg4);
+
+
+                // Agregar al CardLayout
+                panelDerecho.add(panelAyuda, "Ayuda");
+
+
+
+
 
         frame.add(panelDerecho, BorderLayout.CENTER);
 
