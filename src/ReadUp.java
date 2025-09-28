@@ -239,8 +239,60 @@ public class ReadUp {
 
 
 
-        panelDerecho.add(new JLabel("Panel de definir1", JLabel.CENTER), "A definir1");
-        panelDerecho.add(new JLabel("Panel de definir2", JLabel.CENTER), "A definir2");
+        panelDerecho.add(new JLabel("Catalogo", JLabel.CENTER), "Catalogo");
+
+
+                    // PANEL SUGERENCIAS
+            JPanel panelSugerencias = new JPanel();
+            panelSugerencias.setBackground(Color.WHITE);
+            panelSugerencias.setLayout(new BorderLayout(10, 10));
+
+            // Texto motivador
+            JLabel tituloSugerencias = new JLabel("Nos encanta saber tu opinión!", JLabel.CENTER);
+            tituloSugerencias.setFont(new Font("Monospaced", Font.BOLD, 28));
+            tituloSugerencias.setForeground(new Color(56, 7, 13));
+            panelSugerencias.add(tituloSugerencias, BorderLayout.NORTH);
+
+            // Cuadro de texto (para sugerencias)
+            JTextArea areaTexto = new JTextArea("Escribe aquí tus sugerencias y comentarios...");
+            areaTexto.setLineWrap(true);
+            areaTexto.setWrapStyleWord(true);
+            areaTexto.setFont(new Font("Arial", Font.PLAIN, 18));
+            JScrollPane scroll = new JScrollPane(areaTexto);
+            scroll.setBorder(BorderFactory.createLineBorder(new Color(204, 153, 0), 2, true));
+            panelSugerencias.add(scroll, BorderLayout.CENTER);
+
+            // Botón de enviar
+            JButton btnEnviar = new JButton("Mandar");
+            btnEnviar.setBackground(new Color(0, 168, 107));
+            btnEnviar.setForeground(Color.ORANGE);
+            btnEnviar.setFont(new Font("Arial", Font.BOLD, 16));
+            btnEnviar.setFocusPainted(false);
+            btnEnviar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            btnEnviar.addActionListener(e -> {
+                String sugerencia = areaTexto.getText().trim();
+                if (!sugerencia.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame,
+                        "¡Gracias por tu comentario!\n\n",
+                        "Sugerencia enviada",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    areaTexto.setText(""); // limpia después de mandar
+                } else {
+                    JOptionPane.showMessageDialog(frame,
+                        "Por favor escribe algo antes de mandar.",
+                        "Campo vacío",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+            });
+
+            JPanel bottomPanel = new JPanel();
+            bottomPanel.add(btnEnviar);
+            panelSugerencias.add(bottomPanel, BorderLayout.SOUTH);
+
+            // Lo agregas al CardLayout con el nombre "Sugerencias"
+            panelDerecho.add(panelSugerencias, "Sugerencias");
+
 
 
             // PANEL AYUDA
@@ -262,7 +314,7 @@ public class ReadUp {
         telefono.setBounds(200, 170, 300, 30);
         panelAyuda.add(telefono);
 
-        
+
         // Cargar imagen original
         ImageIcon icon4 = new ImageIcon("/Users/daniela/Desktop/ProyectoBD/ReadUp/src/img/WhatsApp Image 2025-09-20 at 23.38.23-2.png");
 
@@ -312,7 +364,7 @@ public class ReadUp {
 
     void setupButtons() {
         // Nombres de botones (coinciden con los paneles en CardLayout)
-        String[] nombres = {"Menú", "Libros", "A definir1", "A definir2", "Ayuda"};
+        String[] nombres = {"Menú", "Libros", "Catalogo", "Sugerencias", "Ayuda"};
 
         // Colores base
         Color originalBackground = Color.WHITE;
