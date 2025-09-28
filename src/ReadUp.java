@@ -1,6 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ReadUp {
 
@@ -178,32 +181,34 @@ public class ReadUp {
 
 
             // PANEL LIBROS/TABLAS
-            String[] columnas = {"ID","Título", "Autor", "Año", "Género"};
-            Object[][] datos = {
-                {"1","Call Me By Your Name", "André Aciman","2010", "Romance"},
-                {"2","Hábitos Atómicos", "James Clear","2016", "Motivacional"},
-                {"3","El dilema de la novia", "Elena Armas","2020", "Romance"},
-                {"4","Happy Place", "Emily Henry","2019", "Romance"},
-                {"5","It Ends with Us", "Colleen Hoover","2016", "Romance"},
-                {"6","Verity", "Colleen Hoover","2018", "Thriller"},
-                {"7","The Silent Patient", "Alex Michaelides","2019", "Thriller"},
-                {"8","Where the Crawdads Sing", "Delia Owens","2018", "Mystery"},
-                {"9","The Midnight Library", "Matt Haig","2020", "Fantasy"},
-                {"10","Project Hail Mary", "Andy Weir","2021", "Science Fiction"},
-                {"11","Dune", "Frank Herbert","1965", "Science Fiction"},
-                {"12","Neuromancer", "William Gibson","1984", "Cyberpunk"},
-                {"13","The Hobbit", "J.R.R. Tolkien","1937", "Fantasy"},
-                {"14","1984", "George Orwell","1949", "Dystopian"},
-                {"15","Brave New World", "Aldous Huxley","1932", "Dystopian"},
-                {"16","Fahrenheit 451", "Ray Bradbury","1953", "Dystopian"},
-                {"17","The Catcher in the Rye", "J.D. Salinger","1951", "Fiction"},
-                {"18","To Kill a Mockingbird", "Harper Lee","1960", "Fiction"},
-                {"19","Pride and Prejudice", "Jane Austen","1813", "Romance"},
-                {"20","The Great Gatsby", "F. Scott Fitzgerald","1925", "Fiction"}
-            };
+            DefaultTableModel modeloTabla = new DefaultTableModel();
+            modeloTabla.addColumn("ID");
+            modeloTabla.addColumn("Titulo");
+            modeloTabla.addColumn("Autor");
+            modeloTabla.addColumn("Año");
+            modeloTabla.addColumn("Sinopsis");
+            modeloTabla.addColumn("ISBN");
+
+            try(Connection conn = Connection_mysql.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Libro")) {
+
+                while (rs.next()) {
+                    modeloTabla.addRow(new Object[]{
+                        rs.getInt("ID_Libro"),
+                        rs.getString("Titulo_Libro"),
+                        rs.getString("Autor_Libro"),
+                        rs.getString("Año_Publicación_Libro"),
+                        rs.getString("Sinopsis_Libro"),
+                        rs.getInt("ISBN_Libro")
+                    });
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             // Crear JTable no editable
-            JTable tablaLibros = new JTable(datos, columnas) {
+            JTable tablaLibros = new JTable(modeloTabla) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false; // ninguna celda será editable
@@ -233,6 +238,7 @@ public class ReadUp {
 
             // Añadir al CardLayout
             panelDerecho.add(panelLibros, "Libros");
+            panelLibros.add(scrollPane, BorderLayout.CENTER);
 
 
 
